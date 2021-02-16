@@ -3,6 +3,7 @@ import {
   ViewChild,
   ComponentFactoryResolver,
   ViewContainerRef,
+  ComponentRef,
 } from '@angular/core';
 
 import { OneComponent } from './application/one/one.component';
@@ -52,7 +53,12 @@ export class AppComponent {
     const viewContainerRef = this.adHost.viewContainerRef;
 
     viewContainerRef.clear();
-    viewContainerRef.createComponent(componentFactory);
+
+    const componentRef: ComponentRef<any> = viewContainerRef.createComponent(
+      componentFactory
+    );
+
+    componentRef.instance.greetEvent.subscribe(() => this.greet());
   }
 
   greet(): void {
